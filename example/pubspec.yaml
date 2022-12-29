@@ -10,6 +10,8 @@ dependencies:
   cupertino_icons: ^1.0.3
   flutter:
     sdk: flutter
+  flutter_zip_archive:
+    path: ../
   image_picker: ^0.8.4
   path_provider: ^2.0.3
   share: ^2.0.4
@@ -18,9 +20,6 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-
-  flutter_zip_archive:
-    path: ../
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
