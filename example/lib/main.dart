@@ -1,22 +1,23 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter_zip_archive/flutter_zip_archive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController _controller = TextEditingController(text: "1234");
+  final TextEditingController _controller = TextEditingController(text: '1234');
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text("Password:"),
+                  const Text('Password:'),
                   Expanded(
                       child: TextField(
                     controller: _controller,
@@ -42,14 +43,14 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   _zip();
                 },
-                child: Text("ZIP FILE"),
+                child: const Text('ZIP FILE'),
               ),
               MaterialButton(
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
                   _unzip();
                 },
-                child: Text("UNZIP"),
+                child: const Text('UNZIP'),
               )
             ],
           ),
@@ -59,24 +60,24 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future _zip() async {
-    var file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    Directory _cacheDir = await getTemporaryDirectory();
+    final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final Directory cacheDir = await getTemporaryDirectory();
     if (file == null) {
       return;
     }
-    Directory _testDir = Directory(_cacheDir.path + "/test/");
-    _testDir.createSync();
-    file.saveTo(_cacheDir.path + "/test/${file.name}");
-    var _map = await FlutterZipArchive.zip(_cacheDir.path + "/test",
-        _cacheDir.path + "/123.zip", _controller.text);
-    print("_map:" + _map.toString());
-    Share.shareFiles([_map['path']], text: 'ZIP FILE');
+    final Directory testDir = Directory('${cacheDir.path}/test/');
+    testDir.createSync();
+    file.saveTo('${cacheDir.path}/test/${file.name}');
+    final map = await FlutterZipArchive.zip(
+        '${cacheDir.path}/test', '${cacheDir.path}/123.zip', _controller.text);
+    debugPrint('_map:$map');
+    Share.shareFiles([map['path']], text: 'ZIP FILE');
   }
 
   Future _unzip() async {
-    Directory _cacheDir = await getTemporaryDirectory();
-    var _map = await FlutterZipArchive.unzip(
-        _cacheDir.path + "/123.zip", _cacheDir.path, _controller.text);
-    print("_map:" + _map.toString());
+    final Directory cacheDir = await getTemporaryDirectory();
+    final map = await FlutterZipArchive.unzip(
+        '${cacheDir.path}/123.zip', cacheDir.path, _controller.text);
+    debugPrint('_map:$map');
   }
 }
