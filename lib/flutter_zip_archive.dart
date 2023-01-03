@@ -12,13 +12,11 @@ class FlutterZipArchive {
     return version;
   }
 
-  static Future zip(String src, String dest, String password) async {
-    return await _channel.invokeMethod('zip',
-        <String, dynamic>{'src': src, 'dest': dest, 'password': password});
-  }
+  static Future zip(String src, String dest, [String password = '']) =>
+      _channel.invokeMethod(
+          'zip', {'src': src, 'dest': dest, 'password': password});
 
-  static Future unzip(String zip, String dest, String password) async {
-    return await _channel.invokeMethod('unzip',
-        <String, dynamic>{'zip': zip, 'dest': dest, 'password': password});
-  }
+  static Future unzip(String zip, String dest, [String password = '']) =>
+      _channel.invokeMethod(
+          'unzip', {'zip': zip, 'dest': dest, 'password': password});
 }
