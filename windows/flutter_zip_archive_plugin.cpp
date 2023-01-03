@@ -40,6 +40,20 @@ FlutterZipArchivePlugin::~FlutterZipArchivePlugin() {}
 void FlutterZipArchivePlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
+  // if (method_call.method_name().compare("getPlatformVersion") == 0) {
+    // std::ostringstream version_stream;
+  //   version_stream << "Windows ";
+  //   if (IsWindows10OrGreater()) {
+  //     version_stream << "10+";
+  //   } else if (IsWindows8OrGreater()) {
+  //     version_stream << "8";
+  //   } else if (IsWindows7OrGreater()) {
+  //     version_stream << "7";
+  //   }
+    // result->Success(flutter::EncodableValue(version_stream.str()));
+  // } else {
+  //   result->NotImplemented();
+  // }
   if (method_call.method_name().compare("zip") == 0) {
     const auto *args = 
       std::get_if<flutter::EncodableMap>(method_call.arguments());
@@ -63,12 +77,16 @@ void FlutterZipArchivePlugin::HandleMethodCall(
   }
 }
 
+// TODO: Add zip method
 void FlutterZipArchivePlugin::Zip(
   ZipParams params, std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
+    result->Error("-1", "Method is not ready to use. This needs to be continued.");
 }
 
+// TODO: Add unzip method
 void FlutterZipArchivePlugin::Unzip(
   UnzipParams params, std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
+    result->Error("-1", "Method is not ready to use. This needs to be continued.");
 }
 
 }  // namespace flutter_zip_archive
